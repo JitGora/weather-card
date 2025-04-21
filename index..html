@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: white; /* Ensure the iframe has a white background */
+        }
+
+        
+    </style>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather Card App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
+<div class="weather-card bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-md">
+<!-- Current Conditions -->
+<div class="current-conditions p-6 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+<div class="flex justify-between items-start">
+<div>
+<h1 class="text-2xl font-bold">Current Weather</h1>
+<p class="text-blue-100">Updated: <span id="current-time">12:37 PM</span></p>
+</div>
+<div class="bg-white/20 rounded-full p-2">
+<i class="fas fa-sun text-3xl text-yellow-300"></i>
+</div>
+</div>
+
+<div class="flex items-center justify-between mt-6">
+<div class="text-5xl font-light">
+<span id="temp">103</span>°
+<div class="text-lg">Hazy sunshine</div>
+</div>
+<div class="text-right">
+<div class="text-lg">RealFeel® <span id="real-feel" class="font-bold">107</span>°</div>
+<div class="text-xs opacity-80 mt-1">Last Updated: 2 min ago</div>
+</div>
+</div>
+</div>
+
+<!-- Detailed Stats -->
+<div class="detailed-stats p-6">
+<div class="grid grid-cols-2 gap-4">
+<div class="stat-item bg-blue-50 rounded-lg p-3 flex items-center">
+<div class="bg-indigo-100 text-indigo-600 p-2 rounded-full mr-3">
+<i class="fas fa-umbrella-beach"></i>
+</div>
+<div>
+<div class="text-xs text-gray-500">RealFeel Shade™</div>
+<div class="font-semibold"><span id="shade-temp">100</span>°</div>
+</div>
+</div>
+
+<div class="stat-item bg-blue-50 rounded-lg p-3 flex items-center">
+<div class="bg-indigo-100 text-indigo-600 p-2 rounded-full mr-3">
+<i class="fas fa-wind"></i>
+</div>
+<div>
+<div class="text-xs text-gray-500">Wind</div>
+<div class="font-semibold"><span id="wind-speed">9</span> mph <span id="wind-dir">W</span></div>
+</div>
+</div>
+
+<div class="stat-item bg-blue-50 rounded-lg p-3 flex items-center">
+<div class="bg-indigo-100 text-indigo-600 p-2 rounded-full mr-3">
+<i class="fas fa-wind"></i>
+</div>
+<div>
+<div class="text-xs text-gray-500">Wind Gusts</div>
+<div class="font-semibold"><span id="gust-speed">14</span> mph</div>
+</div>
+</div>
+
+<div class="stat-item bg-blue-50 rounded-lg p-3 flex items-center">
+<div class="bg-indigo-100 text-indigo-600 p-2 rounded-full mr-3">
+<i class="fas fa-smog"></i>
+</div>
+<div>
+<div class="text-xs text-gray-500">Air Quality</div>
+<div class="font-semibold text-purple-600" id="air-quality">Very Unhealthy</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Footer -->
+<div class="bg-gray-50 px-6 py-3 border-t border-gray-100 flex justify-between items-center">
+<div class="text-xs text-gray-500">Powered by WeatherAPI</div>
+<button class="text-indigo-600 text-sm font-medium flex items-center">
+More Details <i class="fas fa-chevron-right ml-1 text-xs"></i>
+</button>
+</div>
+</div>
+
+<script>
+// Update time every minute
+function updateTime() {
+const now = new Date();
+const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+document.getElementById('current-time').textContent = timeString;
+}
+
+setInterval(updateTime, 60000);
+updateTime();
+</script>
+</body>
+</html>
+
+
+
+    <script>
+        
+// Update time every minute
+function updateTime() {
+const now = new Date();
+const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+document.getElementById('current-time').textContent = timeString;
+}
+
+setInterval(updateTime, 60000);
+updateTime();
+
+
+    </script>
+</body>
+</html>
