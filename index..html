@@ -10,6 +10,15 @@
         }
 
         
+.hourly-forecast {
+scrollbar-width: none;
+-ms-overflow-style: none;
+}
+.hourly-forecast::-webkit-scrollbar {
+display: none;
+}
+
+
     </style>
 </head>
 <body>
@@ -21,6 +30,15 @@
 <title>Weather Card App</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+.hourly-forecast {
+scrollbar-width: none;
+-ms-overflow-style: none;
+}
+.hourly-forecast::-webkit-scrollbar {
+display: none;
+}
+</style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4">
 <div class="weather-card bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-md">
@@ -29,7 +47,7 @@
 <div class="flex justify-between items-start">
 <div>
 <h1 class="text-2xl font-bold">Current Weather</h1>
-<p class="text-blue-100">Updated: <span id="current-time">12:37 PM</span></p>
+<p class="text-blue-100">Updated: <span id="current-time">1:02 PM</span></p>
 </div>
 <div class="bg-white/20 rounded-full p-2">
 <i class="fas fa-sun text-3xl text-yellow-300"></i>
@@ -38,11 +56,11 @@
 
 <div class="flex items-center justify-between mt-6">
 <div class="text-5xl font-light">
-<span id="temp">103</span>°
+<span id="temp">105</span>°
 <div class="text-lg">Hazy sunshine</div>
 </div>
 <div class="text-right">
-<div class="text-lg">RealFeel® <span id="real-feel" class="font-bold">107</span>°</div>
+<div class="text-lg">RealFeel® <span id="real-feel" class="font-bold">110</span>°</div>
 <div class="text-xs opacity-80 mt-1">Last Updated: 2 min ago</div>
 </div>
 </div>
@@ -57,7 +75,7 @@
 </div>
 <div>
 <div class="text-xs text-gray-500">RealFeel Shade™</div>
-<div class="font-semibold"><span id="shade-temp">100</span>°</div>
+<div class="font-semibold"><span id="shade-temp">103</span>°</div>
 </div>
 </div>
 
@@ -67,7 +85,7 @@
 </div>
 <div>
 <div class="text-xs text-gray-500">Wind</div>
-<div class="font-semibold"><span id="wind-speed">9</span> mph <span id="wind-dir">W</span></div>
+<div class="font-semibold"><span id="wind-speed">9</span> mph <span id="wind-dir">SW</span></div>
 </div>
 </div>
 
@@ -77,7 +95,7 @@
 </div>
 <div>
 <div class="text-xs text-gray-500">Wind Gusts</div>
-<div class="font-semibold"><span id="gust-speed">14</span> mph</div>
+<div class="font-semibold"><span id="gust-speed">19</span> mph</div>
 </div>
 </div>
 
@@ -88,6 +106,64 @@
 <div>
 <div class="text-xs text-gray-500">Air Quality</div>
 <div class="font-semibold text-purple-600" id="air-quality">Very Unhealthy</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Hourly Forecast -->
+<div class="hourly-forecast border-t border-gray-100 p-4">
+<h3 class="text-lg font-semibold mb-3 text-gray-700">Hourly Forecast</h3>
+<div class="overflow-x-auto whitespace-nowrap">
+<div class="inline-flex space-x-4">
+<!-- Hour 1 -->
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="text-sm font-medium">2 PM</div>
+<i class="fas fa-sun text-xl text-yellow-400 my-2"></i>
+<div class="font-bold">107°</div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+<!-- Hour 2 -->
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="text-sm font-medium">3 PM</div>
+<i class="fas fa-sun text-xl text-yellow-400 my-2"></i>
+<div class="font-bold">108°</div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+<!-- Hour 3 -->
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="text-sm font-medium">4 PM</div>
+<i class="fas fa-sun text-xl text-yellow-400 my-2"></i>
+<div class="font-bold">108°</div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+<!-- Hour 4 -->
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="text-sm font-medium">5 PM</div>
+<i class="fas fa-sun text-xl text-yellow-400 my-2"></i>
+<div class="font-bold">107°</div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+<!-- Hour 5 -->
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="text-sm font-medium">6 PM</div>
+<i class="fas fa-sun text-xl text-yellow-400 my-2"></i>
+<div class="font-bold">103°</div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+<!-- Hour 6 -->
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="text-sm font-medium">7 PM</div>
+<i class="fas fa-cloud-moon text-xl text-gray-400 my-2"></i>
+<div class="font-bold">100°</div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+<!-- Hour 7 -->
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="text-sm font-medium">8 PM</div>
+<i class="fas fa-moon text-xl text-gray-300 my-2"></i>
+<div class="font-bold">95°</div>
+<div class="text-xs text-gray-500">0%</div>
 </div>
 </div>
 </div>
