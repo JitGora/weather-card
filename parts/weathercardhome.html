@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: white; /* Ensure the iframe has a white background */
+        }
+
+        
+body {
+font-family: 'Inter', sans-serif;
+}
+.weather-card {
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.temp-high {
+color: #F59E0B;
+text-shadow: 0 1px 2px rgba(245, 158, 11, 0.2);
+}
+.temp-low {
+color: #3B82F6;
+text-shadow: 0 1px 2px rgba(59, 130, 246, 0.2);
+}
+.blur-overlay {
+backdrop-filter: blur(4px);
+background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+    </style>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Weather App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+'weather-primary': '#2563EB',
+'weather-secondary': '#1E40AF',
+'weather-accent': '#F59E0B',
+'weather-danger': '#DC2626',
+'weather-light': '#EFF6FF',
+},
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+}
+}
+}
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body {
+font-family: 'Inter', sans-serif;
+}
+.weather-card {
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.temp-high {
+color: #F59E0B;
+text-shadow: 0 1px 2px rgba(245, 158, 11, 0.2);
+}
+.temp-low {
+color: #3B82F6;
+text-shadow: 0 1px 2px rgba(59, 130, 246, 0.2);
+}
+.blur-overlay {
+backdrop-filter: blur(4px);
+background-color: rgba(255, 255, 255, 0.1);
+}
+</style>
+</head>
+<body class="bg-gradient-to-br from-weather-light to-blue-50 min-h-screen flex items-center justify-center p-4">
+<div class="weather-card bg-white rounded-3xl overflow-hidden w-full max-w-md">
+<!-- Current Conditions with Integrated High/Low -->
+<div class="current-conditions p-6 bg-gradient-to-r from-weather-primary to-weather-secondary text-white relative">
+<div class="blur-overlay absolute inset-0 rounded-t-3xl z-0"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start">
+<div>
+<h1 class="text-2xl font-semibold tracking-tight">Today's Weather</h1>
+<p class="text-blue-100 text-sm">Mon, Apr 21 • Seethal, Rajasthan</p>
+</div>
+<div class="bg-white/20 rounded-full p-2.5">
+<i class="fas fa-sun text-2xl text-weather-accent"></i>
+</div>
+</div>
+
+<div class="flex items-end justify-between mt-4">
+<div class="text-5xl font-light tracking-tighter">
+<span id="temp">108</span>°
+<div class="text-lg font-medium mt-1">Very hot with hazy sunshine</div>
+</div>
+
+<!-- Elegant High/Low Integration -->
+<div class="text-right mb-1">
+<div class="flex items-center justify-end space-x-4">
+    <div class="text-center">
+        <div class="text-xs text-blue-100 opacity-90">High</div>
+        <div class="text-xl font-bold temp-high">108°</div>
+    </div>
+    <div class="h-6 w-px bg-white/30"></div>
+    <div class="text-center">
+        <div class="text-xs text-blue-100 opacity-90">Low</div>
+        <div class="text-xl font-bold temp-low">74°</div>
+    </div>
+</div>
+<div class="text-xs mt-1 text-yellow-100 flex items-center justify-end">
+    <i class="fas fa-exclamation-triangle mr-1"></i>
+    Dangerous heat
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Detailed Stats -->
+<div class="detailed-stats p-6">
+<div class="grid grid-cols-2 gap-3">
+<div class="stat-item bg-white rounded-xl p-3 flex items-center border border-gray-100">
+<div class="bg-weather-light text-weather-primary p-2 rounded-lg mr-3">
+<i class="fas fa-temperature-low text-sm"></i>
+</div>
+<div>
+<div class="text-xs text-gray-600 font-medium">RealFeel Shade™</div>
+<div class="font-semibold text-gray-800">104°</div>
+</div>
+</div>
+
+<div class="stat-item bg-white rounded-xl p-3 flex items-center border border-gray-100">
+<div class="bg-weather-light text-weather-primary p-2 rounded-lg mr-3">
+<i class="fas fa-wind text-sm"></i>
+</div>
+<div>
+<div class="text-xs text-gray-600 font-medium">Wind</div>
+<div class="font-semibold text-gray-800">WSW 10 mph</div>
+</div>
+</div>
+
+<div class="stat-item bg-white rounded-xl p-3 flex items-center border border-gray-100">
+<div class="bg-weather-light text-weather-primary p-2 rounded-lg mr-3">
+<i class="fas fa-wind text-sm"></i>
+</div>
+<div>
+<div class="text-xs text-gray-600 font-medium">Wind Gusts</div>
+<div class="font-semibold text-gray-800">21 mph</div>
+</div>
+</div>
+
+<div class="stat-item bg-white rounded-xl p-3 flex items-center border border-gray-100">
+<div class="bg-weather-light text-weather-primary p-2 rounded-lg mr-3">
+<i class="fas fa-smog text-sm"></i>
+</div>
+<div>
+<div class="text-xs text-gray-600 font-medium">Air Quality</div>
+<div class="font-semibold text-red-600">Unhealthy</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Footer -->
+<div class="bg-gray-50 px-6 py-3 border-t border-gray-100 flex justify-between items-center">
+<div class="text-xs text-gray-500">Updated: 3:09 PM</div>
+<button class="text-weather-primary text-xs font-semibold flex items-center tracking-wide">
+MORE DETAILS <i class="fas fa-chevron-right ml-1.5 text-[10px]"></i>
+</button>
+</div>
+</div>
+</body>
+</html>
+
+
+
+    <script>
+        
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+'weather-primary': '#2563EB',
+'weather-secondary': '#1E40AF',
+'weather-accent': '#F59E0B',
+'weather-danger': '#DC2626',
+'weather-light': '#EFF6FF',
+},
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+}
+}
+}
+
+
+    </script>
+</body>
+</html>
