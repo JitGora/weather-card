@@ -10,12 +10,19 @@
         }
 
         
-.hourly-forecast {
+.scroll-container {
 scrollbar-width: none;
 -ms-overflow-style: none;
 }
-.hourly-forecast::-webkit-scrollbar {
+.scroll-container::-webkit-scrollbar {
 display: none;
+}
+.day-card {
+transition: all 0.2s ease;
+}
+.day-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -31,12 +38,19 @@ display: none;
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-.hourly-forecast {
+.scroll-container {
 scrollbar-width: none;
 -ms-overflow-style: none;
 }
-.hourly-forecast::-webkit-scrollbar {
+.scroll-container::-webkit-scrollbar {
 display: none;
+}
+.day-card {
+transition: all 0.2s ease;
+}
+.day-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 </style>
 </head>
@@ -113,57 +127,237 @@ display: none;
 
 <!-- Hourly Forecast -->
 <div class="hourly-forecast border-t border-gray-100 p-4">
-<h3 class="text-lg font-semibold mb-3 text-gray-700">Hourly Forecast</h3>
-<div class="overflow-x-auto whitespace-nowrap">
-<div class="inline-flex space-x-4">
-<!-- Hour 1 -->
-<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<h3 class="text-lg font-semibold mb-3 text-gray-700 flex items-center">
+<i class="fas fa-clock mr-2 text-indigo-500"></i>
+Hourly Forecast
+</h3>
+<div class="overflow-x-auto scroll-container whitespace-nowrap pb-2">
+<div class="inline-flex space-x-3">
+<!-- Hours will be generated here -->
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center day-card">
+<div class="text-sm font-medium">Now</div>
+<i class="fas fa-sun text-xl text-yellow-400 my-2"></i>
+<div class="font-bold">105°</div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center day-card">
 <div class="text-sm font-medium">2 PM</div>
 <i class="fas fa-sun text-xl text-yellow-400 my-2"></i>
 <div class="font-bold">107°</div>
 <div class="text-xs text-gray-500">0%</div>
 </div>
-<!-- Hour 2 -->
-<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center day-card">
 <div class="text-sm font-medium">3 PM</div>
 <i class="fas fa-sun text-xl text-yellow-400 my-2"></i>
 <div class="font-bold">108°</div>
 <div class="text-xs text-gray-500">0%</div>
 </div>
-<!-- Hour 3 -->
-<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center day-card">
 <div class="text-sm font-medium">4 PM</div>
 <i class="fas fa-sun text-xl text-yellow-400 my-2"></i>
 <div class="font-bold">108°</div>
 <div class="text-xs text-gray-500">0%</div>
 </div>
-<!-- Hour 4 -->
-<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center day-card">
 <div class="text-sm font-medium">5 PM</div>
 <i class="fas fa-sun text-xl text-yellow-400 my-2"></i>
 <div class="font-bold">107°</div>
 <div class="text-xs text-gray-500">0%</div>
 </div>
-<!-- Hour 5 -->
-<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center day-card">
 <div class="text-sm font-medium">6 PM</div>
 <i class="fas fa-sun text-xl text-yellow-400 my-2"></i>
 <div class="font-bold">103°</div>
 <div class="text-xs text-gray-500">0%</div>
 </div>
-<!-- Hour 6 -->
-<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center day-card">
 <div class="text-sm font-medium">7 PM</div>
 <i class="fas fa-cloud-moon text-xl text-gray-400 my-2"></i>
 <div class="font-bold">100°</div>
 <div class="text-xs text-gray-500">0%</div>
 </div>
-<!-- Hour 7 -->
-<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center">
+<div class="hourly-item bg-blue-50 rounded-lg p-3 inline-block w-20 text-center day-card">
 <div class="text-sm font-medium">8 PM</div>
 <i class="fas fa-moon text-xl text-gray-300 my-2"></i>
 <div class="font-bold">95°</div>
 <div class="text-xs text-gray-500">0%</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 10-Day Forecast -->
+<div class="ten-day-forecast border-t border-gray-100 p-4">
+<h3 class="text-lg font-semibold mb-3 text-gray-700 flex items-center">
+<i class="fas fa-calendar-alt mr-2 text-indigo-500"></i>
+10-Day Forecast
+</h3>
+<div class="space-y-3">
+<!-- Day 1 -->
+<div class="day-card bg-white rounded-lg p-3 flex items-center justify-between">
+<div class="w-16">
+<div class="font-medium">Today</div>
+<div class="text-xs text-gray-500">Apr 21</div>
+</div>
+<div class="flex items-center">
+<i class="fas fa-sun text-2xl text-yellow-400 mx-3"></i>
+<div class="text-sm text-center w-24">Very hot with hazy sunshine</div>
+</div>
+<div class="text-right">
+<div class="font-bold">105° <span class="font-normal text-gray-500">74°</span></div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+</div>
+
+<!-- Day 2 -->
+<div class="day-card bg-white rounded-lg p-3 flex items-center justify-between">
+<div class="w-16">
+<div class="font-medium">Tue</div>
+<div class="text-xs text-gray-500">Apr 22</div>
+</div>
+<div class="flex items-center">
+<i class="fas fa-sun text-2xl text-yellow-400 mx-3"></i>
+<div class="text-sm text-center w-24">Hazy sunshine and very hot</div>
+</div>
+<div class="text-right">
+<div class="font-bold">106° <span class="font-normal text-gray-500">72°</span></div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+</div>
+
+<!-- Day 3 -->
+<div class="day-card bg-white rounded-lg p-3 flex items-center justify-between">
+<div class="w-16">
+<div class="font-medium">Wed</div>
+<div class="text-xs text-gray-500">Apr 23</div>
+</div>
+<div class="flex items-center">
+<i class="fas fa-sun text-2xl text-yellow-400 mx-3"></i>
+<div class="text-sm text-center w-24">Hazy sunshine and very hot</div>
+</div>
+<div class="text-right">
+<div class="font-bold">107° <span class="font-normal text-gray-500">72°</span></div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+</div>
+
+<!-- Day 4 -->
+<div class="day-card bg-white rounded-lg p-3 flex items-center justify-between">
+<div class="w-16">
+<div class="font-medium">Thu</div>
+<div class="text-xs text-gray-500">Apr 24</div>
+</div>
+<div class="flex items-center">
+<i class="fas fa-sun text-2xl text-yellow-400 mx-3"></i>
+<div class="text-sm text-center w-24">Very hot with hazy sunshine</div>
+</div>
+<div class="text-right">
+<div class="font-bold">108° <span class="font-normal text-gray-500">77°</span></div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+</div>
+
+<!-- Day 5 -->
+<div class="day-card bg-white rounded-lg p-3 flex items-center justify-between">
+<div class="w-16">
+<div class="font-medium">Fri</div>
+<div class="text-xs text-gray-500">Apr 25</div>
+</div>
+<div class="flex items-center">
+<i class="fas fa-sun text-2xl text-yellow-400 mx-3"></i>
+<div class="text-sm text-center w-24">Very hot with sunshine</div>
+</div>
+<div class="text-right">
+<div class="font-bold">111° <span class="font-normal text-gray-500">74°</span></div>
+<div class="text-xs text-gray-500">0%</div>
+</div>
+</div>
+
+<!-- Show More Button -->
+<button class="show-more-days w-full py-2 text-indigo-600 text-sm font-medium flex items-center justify-center">
+Show next 5 days <i class="fas fa-chevron-down ml-1 text-xs"></i>
+</button>
+
+<!-- Hidden Days (will be shown when clicking "Show more") -->
+<div class="hidden-days hidden space-y-3">
+<!-- Day 6 -->
+<div class="day-card bg-white rounded-lg p-3 flex items-center justify-between">
+<div class="w-16">
+    <div class="font-medium">Sat</div>
+    <div class="text-xs text-gray-500">Apr 26</div>
+</div>
+<div class="flex items-center">
+    <i class="fas fa-sun text-2xl text-yellow-400 mx-3"></i>
+    <div class="text-sm text-center w-24">Very hot with plenty of sun</div>
+</div>
+<div class="text-right">
+    <div class="font-bold">108° <span class="font-normal text-gray-500">80°</span></div>
+    <div class="text-xs text-gray-500">0%</div>
+</div>
+</div>
+
+<!-- Day 7 -->
+<div class="day-card bg-white rounded-lg p-3 flex items-center justify-between">
+<div class="w-16">
+    <div class="font-medium">Sun</div>
+    <div class="text-xs text-gray-500">Apr 27</div>
+</div>
+<div class="flex items-center">
+    <i class="fas fa-sun text-2xl text-yellow-400 mx-3"></i>
+    <div class="text-sm text-center w-24">Blazing sunshine and very hot</div>
+</div>
+<div class="text-right">
+    <div class="font-bold">114° <span class="font-normal text-gray-500">83°</span></div>
+    <div class="text-xs text-gray-500">0%</div>
+</div>
+</div>
+
+<!-- Day 8 -->
+<div class="day-card bg-white rounded-lg p-3 flex items-center justify-between">
+<div class="w-16">
+    <div class="font-medium">Mon</div>
+    <div class="text-xs text-gray-500">Apr 28</div>
+</div>
+<div class="flex items-center">
+    <i class="fas fa-sun text-2xl text-yellow-400 mx-3"></i>
+    <div class="text-sm text-center w-24">Mostly sunny and very hot</div>
+</div>
+<div class="text-right">
+    <div class="font-bold">112° <span class="font-normal text-gray-500">85°</span></div>
+    <div class="text-xs text-gray-500">0%</div>
+</div>
+</div>
+
+<!-- Day 9 -->
+<div class="day-card bg-white rounded-lg p-3 flex items-center justify-between">
+<div class="w-16">
+    <div class="font-medium">Tue</div>
+    <div class="text-xs text-gray-500">Apr 29</div>
+</div>
+<div class="flex items-center">
+    <i class="fas fa-sun text-2xl text-yellow-400 mx-3"></i>
+    <div class="text-sm text-center w-24">Mostly cloudy and very hot</div>
+</div>
+<div class="text-right">
+    <div class="font-bold">112° <span class="font-normal text-gray-500">80°</span></div>
+    <div class="text-xs text-gray-500">0%</div>
+</div>
+</div>
+
+<!-- Day 10 -->
+<div class="day-card bg-white rounded-lg p-3 flex items-center justify-between">
+<div class="w-16">
+    <div class="font-medium">Wed</div>
+    <div class="text-xs text-gray-500">Apr 30</div>
+</div>
+<div class="flex items-center">
+    <i class="fas fa-sun text-2xl text-yellow-400 mx-3"></i>
+    <div class="text-sm text-center w-24">Sunny and very warm</div>
+</div>
+<div class="text-right">
+    <div class="font-bold">106° <span class="font-normal text-gray-500">83°</span></div>
+    <div class="text-xs text-gray-500">0%</div>
+</div>
 </div>
 </div>
 </div>
@@ -186,6 +380,21 @@ const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2
 document.getElementById('current-time').textContent = timeString;
 }
 
+// Toggle show more days
+document.querySelector('.show-more-days').addEventListener('click', function() {
+const hiddenDays = document.querySelector('.hidden-days');
+const button = this;
+
+hiddenDays.classList.toggle('hidden');
+button.textContent = hiddenDays.classList.contains('hidden') 
+? 'Show next 5 days' 
+: 'Show less';
+
+button.innerHTML = hiddenDays.classList.contains('hidden')
+? 'Show next 5 days <i class="fas fa-chevron-down ml-1 text-xs"></i>'
+: 'Show less <i class="fas fa-chevron-up ml-1 text-xs"></i>';
+});
+
 setInterval(updateTime, 60000);
 updateTime();
 </script>
@@ -202,6 +411,21 @@ const now = new Date();
 const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 document.getElementById('current-time').textContent = timeString;
 }
+
+// Toggle show more days
+document.querySelector('.show-more-days').addEventListener('click', function() {
+const hiddenDays = document.querySelector('.hidden-days');
+const button = this;
+
+hiddenDays.classList.toggle('hidden');
+button.textContent = hiddenDays.classList.contains('hidden') 
+? 'Show next 5 days' 
+: 'Show less';
+
+button.innerHTML = hiddenDays.classList.contains('hidden')
+? 'Show next 5 days <i class="fas fa-chevron-down ml-1 text-xs"></i>'
+: 'Show less <i class="fas fa-chevron-up ml-1 text-xs"></i>';
+});
 
 setInterval(updateTime, 60000);
 updateTime();
