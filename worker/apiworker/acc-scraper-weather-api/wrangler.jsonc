@@ -4,9 +4,9 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "weather-scraper",
+	"name": "acc-scraper-weather-api",
 	"main": "src/index.js",
-	"compatibility_date": "2025-04-21",
+	"compatibility_date": "2025-04-23",
 	"observability": {
 		"enabled": true
 	}

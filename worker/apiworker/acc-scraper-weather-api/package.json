@@ -1,5 +1,5 @@
 {
-	"name": "weather-scraper",
+	"name": "acc-scraper-weather-api",
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
@@ -11,9 +11,6 @@
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.7.5",
 		"vitest": "~3.0.7",
-		"wrangler": "^4.12.0"
-	},
-	"dependencies": {
-		"cheerio": "^1.0.0"
+		"wrangler": "^4.13.0"
 	}
 }
