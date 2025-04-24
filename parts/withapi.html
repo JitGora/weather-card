@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Weather App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'weather-primary': '#2563EB',
+                        'weather-secondary': '#1E40AF',
+                        'weather-accent': '#F59E0B',
+                        'weather-danger': '#DC2626',
+                        'weather-light': '#EFF6FF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .weather-card {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        @media (max-width: 640px) {
+            .weather-card {
+                border-radius: 0;
+                min-height: 100vh;
+                max-width: 100%;
+            }
+            body {
+                padding: 0;
+                display: block;
+            }
+        }
+        .temp-high {
+            color: #F59E0B;
+            text-shadow: 0 1px 2px rgba(245, 158, 11, 0.2);
+        }
+        .temp-low {
+            color: #3B82F6;
+            text-shadow: 0 1px 2px rgba(59, 130, 246, 0.2);
+        }
+        .blur-overlay {
+            backdrop-filter: blur(4px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .scroll-container {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+        .day-card {
+            transition: all 0.2s ease;
+        }
+        .day-card:hover {
+            transform: translateY(-2px);
+        }
+        .danger-heat {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-weather-light to-blue-50 min-h-screen md:flex md:items-center md:justify-center p-0 md:p-4">
+    <div class="weather-card bg-white rounded-3xl overflow-hidden w-full max-w-md md:max-w-md mx-auto">
+        <!-- Current Conditions with Integrated High/Low -->
+        <div class="current-conditions p-6 bg-gradient-to-r from-weather-primary to-weather-secondary text-white relative">
+            <div class="blur-overlay absolute inset-0 rounded-t-3xl md:rounded-t-3xl z-0"></div>
+            <div class="relative z-10">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h1 class="text-2xl font-semibold tracking-tight">Today's Weather</h1>
+                        <p class="text-blue-100 text-sm" id="location-date">Loading...</p>
+                    </div>
+                    <div class="bg-white/20 rounded-full p-2.5">
+                        <i id="current-weather-icon" class="fas fa-question text-2xl text-weather-accent"></i>
+                    </div>
+                </div>
+
+                <div class="flex items-end justify-between mt-4">
+                    <div class="text-5xl font-light tracking-tighter">
+                        <span id="current-temp">--</span>°
+                        <div class="text-lg font-medium mt-1" id="current-conditions">Loading...</div>
+                    </div>
+
+                    <!-- Elegant High/Low Integration -->
+                    <div class="text-right mb-1">
+                        <div class="flex items-center justify-end space-x-4">
+                            <div class="text-center">
+                                <div class="text-xs text-blue-100 opacity-90">High</div>
+                                <div class="text-xl font-bold temp-high" id="today-high">--°</div>
+                            </div>
+                            <div class="h-6 w-px bg-white/30"></div>
+                            <div class="text-center">
+                                <div class="text-xs text-blue-100 opacity-90">Low</div>
+                                <div class="text-xl font-bold temp-low" id="today-low">--°</div>
+                            </div>
+                        </div>
+                        <div id="heat-warning" class="text-xs mt-1 text-yellow-100 flex items-center justify-end hidden">
+                            <i class="fas fa-exclamation-triangle mr-1"></i>
+                            <span id="warning-text">Dangerous heat</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Stats -->
+        <div class="detailed-stats p-6">
+            <div class="grid grid-cols-2 gap-3">
+                <div class="stat-item bg-white rounded-xl p-3 flex items-center border border-gray-100">
+                    <div class="bg-weather-light text-weather-primary p-2 rounded-lg mr-3">
+                        <i class="fas fa-temperature-low text-sm"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-600 font-medium">RealFeel Shade™</div>
+                        <div class="font-semibold text-gray-800" id="real-feel">--°</div>
+                    </div>
+                </div>
+
+                <div class="stat-item bg-white rounded-xl p-3 flex items-center border border-gray-100">
+                    <div class="bg-weather-light text-weather-primary p-2 rounded-lg mr-3">
+                        <i class="fas fa-wind text-sm"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-600 font-medium">Wind</div>
+                        <div class="font-semibold text-gray-800" id="wind-speed">--</div>
+                    </div>
+                </div>
+
+                <div class="stat-item bg-white rounded-xl p-3 flex items-center border border-gray-100">
+                    <div class="bg-weather-light text-weather-primary p-2 rounded-lg mr-3">
+                        <i class="fas fa-wind text-sm"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-600 font-medium">Wind Gusts</div>
+                        <div class="font-semibold text-gray-800" id="wind-gusts">--</div>
+                    </div>
+                </div>
+
+                <div class="stat-item bg-white rounded-xl p-3 flex items-center border border-gray-100">
+                    <div class="bg-weather-light text-weather-primary p-2 rounded-lg mr-3">
+                        <i class="fas fa-smog text-sm"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-600 font-medium">Air Quality</div>
+                        <div class="font-semibold" id="air-quality">--</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hourly Forecast -->
+        <div class="hourly-forecast border-t border-gray-100 px-6 pt-4 pb-5">
+            <h3 class="text-base font-semibold text-gray-800 mb-3 flex items-center">
+                <i class="fas fa-clock text-weather-primary mr-2 text-sm"></i>
+                Hourly Forecast
+            </h3>
+            <div class="relative">
+                <div class="overflow-x-auto scroll-container whitespace-nowrap pb-2">
+                    <div class="inline-flex space-x-3" id="hourly-forecast-container">
+                        <!-- Hourly items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10-Day Forecast -->
+        <div class="ten-day-forecast border-t border-gray-100 px-6 pt-4 pb-5">
+            <h3 class="text-base font-semibold text-gray-800 mb-3 flex items-center">
+                <i class="fas fa-calendar-alt text-weather-primary mr-2 text-sm"></i>
+                10-Day Forecast
+            </h3>
+            <div class="space-y-2" id="daily-forecast-container">
+                <!-- Day items will be inserted here by JavaScript -->
+            </div>
+
+            <!-- Show More Button -->
+            <button class="show-more-days w-full py-2.5 text-weather-primary text-xs font-semibold flex items-center justify-center rounded-lg bg-weather-light mt-2">
+                SHOW NEXT 7 DAYS <i class="fas fa-chevron-down ml-1.5 text-[10px]"></i>
+            </button>
+
+            <!-- Hidden Days -->
+            <div class="hidden-days hidden space-y-2" id="hidden-days-container">
+                <!-- Additional day items will be inserted here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-gray-50 px-6 py-3 border-t border-gray-100 flex justify-between items-center">
+            <div class="text-xs text-gray-500" id="last-updated">Updated: Loading...</div>
+            <button class="text-weather-primary text-xs font-semibold flex items-center tracking-wide">
+                MORE DETAILS <i class="fas fa-chevron-right ml-1.5 text-[10px]"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Weather icon mapping with priority
+        const weatherIcons = [
+            { keywords: ['thunderstorm', 'storm', 'lightning'], icon: 'fa-bolt', color: 'text-purple-500' },
+            { keywords: ['tornado', 'hurricane', 'typhoon'], icon: 'fa-tornado', color: 'text-red-500' },
+            { keywords: ['snow', 'blizzard', 'sleet', 'ice', 'flurries'], icon: 'fa-snowflake', color: 'text-blue-200' },
+            { keywords: ['rain', 'drizzle', 'shower', 'precipitation'], icon: 'fa-cloud-rain', color: 'text-blue-400' },
+            { keywords: ['fog', 'mist', 'haze', 'smoke', 'foggy'], icon: 'fa-smog', color: 'text-gray-400' },
+            { keywords: ['wind', 'breezy', 'windy'], icon: 'fa-wind', color: 'text-gray-500' },
+            { keywords: ['cloudy', 'overcast'], icon: 'fa-cloud', color: 'text-gray-400' },
+            { keywords: ['partly cloudy', 'mostly cloudy', 'scattered clouds'], icon: 'fa-cloud-sun', color: 'text-yellow-300' },
+            { keywords: ['clear', 'sunny', 'fair'], icon: 'fa-sun', color: 'text-yellow-400' },
+            { keywords: ['hot', 'scorching', 'heat'], icon: 'fa-temperature-high', color: 'text-red-500' },
+            { keywords: ['cold', 'freezing', 'chilly'], icon: 'fa-temperature-low', color: 'text-blue-400' },
+            { keywords: ['night', 'clear night', 'moon'], icon: 'fa-moon', color: 'text-gray-300' },
+            { keywords: ['partly cloudy night'], icon: 'fa-cloud-moon', color: 'text-gray-400' }
+        ];
+
+        // Get appropriate weather icon with time awareness
+        function getWeatherIcon(condition, timeString = null) {
+            if (!condition) return { icon: 'fa-question', color: 'text-gray-400' };
+            
+            const lowerCondition = condition.toLowerCase();
+            let isNight = false;
+            
+            // Determine if it's night time based on time string
+            if (timeString) {
+                const timeParts = timeString.split(' ');
+                const hour = parseInt(timeParts[0]);
+                const period = timeParts[1]?.toUpperCase() || '';
+                
+                // Special case for 12 AM/PM
+                const adjustedHour = (hour === 12) ? 0 : hour;
+                
+                // Consider night between 6PM and 6AM
+                isNight = (period === 'PM' && adjustedHour >= 6) || 
+                          (period === 'AM' && adjustedHour < 6);
+            }
+            
+            // Find matching icon (checking each pattern in order of priority)
+            for (const pattern of weatherIcons) {
+                for (const keyword of pattern.keywords) {
+                    if (lowerCondition.includes(keyword)) {
+                        // Special handling for night variants
+                        if (isNight) {
+                            if (keyword === 'clear' || keyword === 'sunny') {
+                                return { icon: 'fa-moon', color: 'text-gray-300' };
+                            }
+                            if (keyword === 'partly cloudy' || keyword === 'mostly cloudy') {
+                                return { icon: 'fa-cloud-moon', color: 'text-gray-400' };
+                            }
+                        }
+                        return pattern;
+                    }
+                }
+            }
+            
+            // Default to sun/moon based on time if no match found
+            return isNight 
+                ? { icon: 'fa-moon', color: 'text-gray-300' } 
+                : { icon: 'fa-sun', color: 'text-yellow-400' };
+        }
+
+        // Format temperature (remove °C/°F if present)
+        function formatTemp(tempStr) {
+            if (!tempStr) return '--';
+            return tempStr.replace(/[°CF]/g, '');
+        }
+
+        // Check if temperature is dangerously high
+        function isDangerousHeat(tempC) {
+            const temp = parseInt(tempC);
+            return temp >= 40; // 40°C or higher is considered dangerous
+        }
+
+        // Fetch weather data
+        async function fetchWeatherData() {
+            try {
+                const response = await fetch('https://wheather-api-proxy.jitendragora6.workers.dev/weather/seethal');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                return null;
+            }
+        }
+
+        // Update current weather
+        function updateCurrentWeather(data) {
+            if (!data) return;
+
+            // Current weather
+            const current = data.current_weather;
+            document.getElementById('current-temp').textContent = formatTemp(current.temperature);
+            document.getElementById('current-conditions').textContent = current.conditions || 'Clear';
+            document.getElementById('real-feel').textContent = formatTemp(current.real_feel);
+            document.getElementById('wind-speed').textContent = `${current.wind.direction || '--'} ${current.wind.speed || '--'}`;
+            document.getElementById('wind-gusts').textContent = current.wind.gusts || '--';
+            
+            // Air quality
+            const airQuality = document.getElementById('air-quality');
+            airQuality.textContent = current.air_quality || '--';
+            if (current.air_quality === 'Unhealthy') {
+                airQuality.classList.add('text-weather-danger');
+            }
+
+            // Location and date
+            document.getElementById('location-date').textContent = 
+                `${data.today_weather.date || 'Today'} • ${data.metadata.location || 'Seethal, Rajasthan'}`;
+
+            // Today's high/low
+            const todayHigh = data.today_weather.high || data['10_day_forecast'][0]?.high || '--';
+            const todayLow = data.today_weather.low || data['10_day_forecast'][0]?.low || '--';
+            document.getElementById('today-high').textContent = formatTemp(todayHigh);
+            document.getElementById('today-low').textContent = formatTemp(todayLow);
+
+            // Heat warning
+            const tempC = parseInt(formatTemp(current.temperature));
+            if (isDangerousHeat(tempC)) {
+                const warning = document.getElementById('heat-warning');
+                warning.classList.remove('hidden');
+                if (tempC >= 45) {
+                    warning.classList.add('danger-heat');
+                    document.getElementById('warning-text').textContent = 'Extreme heat warning!';
+                }
+            }
+
+            // Weather icon (using current time to determine day/night)
+            const now = new Date();
+            const isNight = now.getHours() >= 18 || now.getHours() < 6;
+            const iconInfo = getWeatherIcon(current.conditions, isNight ? 'night' : 'day');
+            const iconElement = document.getElementById('current-weather-icon');
+            iconElement.className = `fas ${iconInfo.icon} text-2xl ${iconInfo.color}`;
+
+            // Last updated
+            const updated = new Date(data.metadata.last_updated);
+            document.getElementById('last-updated').textContent = 
+                `Updated: ${updated.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        }
+
+        // Update hourly forecast with dynamic icons
+        function updateHourlyForecast(data) {
+            if (!data || !data.hourly_weather) return;
+
+            const container = document.getElementById('hourly-forecast-container');
+            container.innerHTML = '';
+
+            data.hourly_weather.slice(0, 8).forEach(hour => {
+                // Determine weather condition based on precipitation
+                let condition = 'Clear';
+                if (hour.precipitation !== '0%') {
+                    condition = parseInt(hour.precipitation) > 30 ? 'Rain' : 'Light Rain';
+                }
+                
+                // Determine if it's night time
+                const timeParts = hour.time.split(' ');
+                const hourNum = parseInt(timeParts[0]);
+                const period = timeParts[1]?.toUpperCase() || '';
+                const isNight = (period === 'AM' && (hourNum === 12 || hourNum < 6)) || 
+                                (period === 'PM' && hourNum >= 6);
+                
+                // Get appropriate icon
+                const iconInfo = getWeatherIcon(isNight ? `${condition} night` : condition, hour.time);
+                
+                const hourItem = document.createElement('div');
+                hourItem.className = 'hourly-item bg-white rounded-xl p-3 inline-block w-20 text-center day-card border border-gray-100';
+                hourItem.innerHTML = `
+                    <div class="text-xs font-medium text-gray-600">${hour.time}</div>
+                    <i class="fas ${iconInfo.icon} text-xl ${iconInfo.color} my-2"></i>
+                    <div class="font-bold text-gray-800">${formatTemp(hour.temperature)}°</div>
+                    <div class="text-[10px] text-gray-500 font-medium">${hour.precipitation || '0%'}</div>
+                `;
+                container.appendChild(hourItem);
+            });
+        }
+
+        // Update daily forecast
+        function updateDailyForecast(data) {
+            if (!data || !data['10_day_forecast']) return;
+
+            const visibleContainer = document.getElementById('daily-forecast-container');
+            const hiddenContainer = document.getElementById('hidden-days-container');
+            visibleContainer.innerHTML = '';
+            hiddenContainer.innerHTML = '';
+
+            data['10_day_forecast'].forEach((day, index) => {
+                const dateParts = day.date.split(' ');
+                const dayName = dateParts[0];
+                const date = dateParts.slice(1).join(' ');
+                const iconInfo = getWeatherIcon(day.description);
+                
+                const dayItem = document.createElement('div');
+                dayItem.className = 'day-card bg-white rounded-xl p-3 flex items-center justify-between border border-gray-100';
+                dayItem.innerHTML = `
+                    <div class="w-20">
+                        <div class="font-medium text-sm">${dayName}</div>
+                        <div class="text-xs text-gray-500">${date}</div>
+                    </div>
+                    <div class="flex items-center mx-2">
+                        <i class="fas ${iconInfo.icon} text-lg ${iconInfo.color} mx-2"></i>
+                        <div class="text-xs text-gray-600 text-center w-20">${day.description || '--'}</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="font-bold text-sm text-gray-800">${formatTemp(day.high) || '--'}° <span class="font-normal text-gray-500">${formatTemp(day.low) || '--'}°</span></div>
+                        <div class="text-[10px] text-gray-500 font-medium">${day.precipitation || '0%'}</div>
+                    </div>
+                `;
+
+                if (index < 3) {
+                    visibleContainer.appendChild(dayItem);
+                } else {
+                    hiddenContainer.appendChild(dayItem);
+                }
+            });
+        }
+
+        // Initialize the app
+        async function initApp() {
+            const weatherData = await fetchWeatherData();
+            if (weatherData) {
+                updateCurrentWeather(weatherData);
+                updateHourlyForecast(weatherData);
+                updateDailyForecast(weatherData);
+            } else {
+                // Show error state
+                document.getElementById('current-temp').textContent = '--';
+                document.getElementById('current-conditions').textContent = 'Unable to load weather data';
+            }
+        }
+
+        // Toggle show more days
+        document.querySelector('.show-more-days').addEventListener('click', function() {
+            const hiddenDays = document.querySelector('.hidden-days');
+            const button = this;
+
+            hiddenDays.classList.toggle('hidden');
+            button.innerHTML = hiddenDays.classList.contains('hidden')
+                ? 'SHOW NEXT 7 DAYS <i class="fas fa-chevron-down ml-1.5 text-[10px]"></i>'
+                : 'SHOW LESS <i class="fas fa-chevron-up ml-1.5 text-[10px]"></i>';
+        });
+
+        // Initialize the app when the page loads
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
