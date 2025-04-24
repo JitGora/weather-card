@@ -86,7 +86,7 @@
             <div class="relative z-10">
                 <div class="flex justify-between items-start">
                     <div>
-                        <h1 class="text-2xl font-semibold tracking-tight">Today's Weather</h1>
+                        <h1 class="text-2xl font-semibold tracking-tight">Current Weather</h1>
                         <p class="text-blue-100 text-sm" id="location-date">Loading...</p>
                     </div>
                     <div class="bg-white/20 rounded-full p-2.5">
@@ -327,8 +327,8 @@
             // Today's high/low
             const todayHigh = data.today_weather.high || data['10_day_forecast'][0]?.high || '--';
             const todayLow = data.today_weather.low || data['10_day_forecast'][0]?.low || '--';
-            document.getElementById('today-high').textContent = formatTemp(todayHigh);
-            document.getElementById('today-low').textContent = formatTemp(todayLow);
+            document.getElementById('today-low').textContent = formatTemp(todayHigh);
+            // document.getElementById('today-low').textContent = formatTemp(todayLow);
 
             // Heat warning
             const tempC = parseInt(formatTemp(current.temperature));
